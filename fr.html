@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap" rel="stylesheet"/>
+<title>Austral Collective</title>
+<meta content="Austral Collective — Petits jeux. Grandes idées." name="description"/>
+<style>
+:root{
+  --bg:#071a2f;
+  --text:#eef6ff;
+  --muted:rgba(238,246,255,.72);
+  --line:rgba(255,255,255,.16);
+  --accent:#9fd8ff;
+  --panel:rgba(255,255,255,.08);
+  --shadow:0 24px 80px rgba(0,0,0,.28);
+}
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      height:100vh;
+      overflow:hidden;
+      color:var(--text);
+      background:var(--bg);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button,a{font:inherit}
+    a{color:inherit;text-decoration:none}
+
+.background{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at 22% 48%, rgba(23, 96, 171, .26), transparent 28%),
+    radial-gradient(circle at 68% 30%, rgba(67, 176, 146, .24), transparent 30%),
+    radial-gradient(circle at 58% 62%, rgba(30, 86, 136, .18), transparent 26%),
+    linear-gradient(115deg, #071a2f 0%, #0a2239 35%, #10293b 62%, #0f2434 100%);
+}
+
+.background::before{
+  content:"";
+  position:absolute;
+  inset:-8%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 52% 42%, rgba(120, 255, 214, .12), transparent 22%),
+    radial-gradient(circle at 46% 52%, rgba(65, 166, 255, .10), transparent 18%),
+    radial-gradient(circle at 76% 26%, rgba(121, 255, 208, .08), transparent 18%);
+  filter:blur(34px);
+  opacity:.95;
+}
+
+.background::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at center, transparent 42%, rgba(0,0,0,.18) 75%, rgba(0,0,0,.34) 100%);
+}
+
+.background .particles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.42;
+  background-image:
+    radial-gradient(circle at 18% 28%, rgba(255,255,255,.75) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 34% 70%, rgba(255,255,255,.45) 0 1px, transparent 2px),
+    radial-gradient(circle at 62% 44%, rgba(255,255,255,.35) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 24%, rgba(255,255,255,.65) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 84% 66%, rgba(255,255,255,.35) 0 1px, transparent 2px),
+    radial-gradient(circle at 12% 78%, rgba(255,255,255,.30) 0 1px, transparent 2px);
+}
+    /* =========================================================
+       FIXED CHROME
+       ========================================================= */
+    .hamburger{
+      position:fixed;
+      left:22px;
+      top:20px;
+      z-index:50;
+      width:26px;
+      height:18px;
+      padding:0;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+
+      display: none;
+    }
+
+    .hamburger span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:2px;
+      background:white;
+      border-radius:99px;
+      opacity:.92;
+
+      display: none;
+    }
+
+    .hamburger span:nth-child(1){top:0}
+    .hamburger span:nth-child(2){top:8px}
+    .hamburger span:nth-child(3){top:16px}
+
+.social-fixed{
+  position:fixed;
+  left:22px;
+  z-index:50;
+  bottom:115px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.social-fixed a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:34px;
+  height:34px;
+
+  border-radius:50%;
+
+  color:#ffffff;
+  font-size:.78rem;
+  font-weight:700;
+
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(8,35,42,.45);
+
+  backdrop-filter:blur(8px);
+
+  box-shadow:
+    0 0 8px rgba(255,255,255,.08);
+
+  transition:.2s ease;
+}
+
+.social-fixed a:hover{
+  transform:translateY(-2px);
+
+  background:rgba(13,86,96,.75);
+
+  box-shadow:
+    0 0 8px rgba(255,255,255,.25),
+    0 0 18px rgba(125,220,255,.18);
+}
+
+.brand{
+  font-family:"Press Start 2P", monospace;
+  font-size:clamp(1.5rem, 2.6vw, 2.35rem);
+  font-weight:400;
+  line-height:1.4;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:#dcecff;
+  text-shadow:
+    0 0 8px rgba(159,216,255,.18);
+
+  display: none;
+}
+
+.brand strong{
+  font-weight:400;
+  letter-spacing:.08em;
+}
+
+.brand-wrap{
+  position:fixed;
+  left:1vw;
+  top:42px;
+  z-index:30;
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.brand-logo{
+  width:64px;
+  height:auto;
+  image-rendering:pixelated;
+  image-rendering:crisp-edges;
+  flex-shrink:0;
+}
+
+    .bullets{
+      position:fixed;
+      left:22px;
+      top:52%;
+      transform:translateY(-50%);
+      z-index:40;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+.bullets button{
+  width:13px;
+  height:13px;
+  padding:0;
+  border-radius:50%;
+  border:2px solid #ffffff;
+  background:transparent;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.bullets button:hover{
+  transform:scale(1.15);
+  border-color:#ffffff;
+}
+
+.bullets button.active{
+  background:#ffffff;
+  border-color:#ffffff;
+  box-shadow:0 0 0 3px rgba(16,59,138,.12);
+}
+
+    /* =========================================================
+       FIXED VISUAL AREA
+       ========================================================= */
+    .visual{
+      position:fixed;
+      right:3vw;
+      bottom:0;
+      z-index:12;
+      width:min(46vw, 720px);
+      height:82vh;
+      pointer-events:none;
+    }
+
+    .visual-orb,
+    .visual-phone,
+    .visual-ring,
+    .visual-zombie{
+      position:absolute;
+      transition:
+        opacity .65s ease,
+        transform .75s cubic-bezier(.2,.75,.2,1);
+    }
+
+    .visual-orb{
+      left:0;
+      bottom:11vh;
+      width:160px;
+      height:110px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 55% 40%, rgba(255,255,255,.8) 0 3px, transparent 4px),
+        linear-gradient(160deg, #cf5c64 0 42%, #162739 43% 100%);
+      box-shadow:0 0 42px rgba(77,169,191,.25);
+      transform:rotate(-18deg);
+    }
+
+    .visual-ring{
+      left:18%;
+      bottom:4vh;
+      width:72px;
+      height:72px;
+      border:10px solid #e9577b;
+      border-radius:50%;
+      box-shadow:
+        0 0 22px rgba(233,87,123,.45),
+        inset 0 0 18px rgba(255,255,255,.12);
+      transform:rotate(22deg);
+    }
+
+    .visual-phone{
+      right:0;
+      bottom:-2vh;
+      width:320px;
+      height:620px;
+      border-radius:44px;
+      background:linear-gradient(180deg,#0c0d10,#171a20);
+      border:5px solid #26292f;
+      box-shadow:var(--shadow);
+    }
+
+    .visual-phone::before{
+      content:"";
+      position:absolute;
+      top:72px;
+      left:19px;
+      right:19px;
+      bottom:70px;
+      border-radius:8px;
+      background:
+        radial-gradient(circle at 65% 30%, rgba(217,239,120,.34), transparent 18rem),
+        linear-gradient(160deg,#1f1522,#17252c);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+
+    .visual-phone::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:24px;
+      transform:translateX(-50%);
+      width:46px;
+      height:6px;
+      border-radius:999px;
+      background:#2a2d34;
+    }
+
+    .phone-copy{
+      position:absolute;
+      z-index:2;
+      top:180px;
+      left:50%;
+      transform:translateX(-50%);
+      width:78%;
+      text-align:center;
+      color:rgba(255,255,255,.8);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:.82rem;
+    }
+
+    .phone-title{
+      margin-top:20px;
+      font-size:1.5rem;
+      letter-spacing:.18em;
+      font-weight:300;
+    }
+
+    .visual-zombie{
+      right:8%;
+      bottom:3vh;
+      width:165px;
+      height:250px;
+      border-radius:44% 44% 22% 22%;
+      background:
+        radial-gradient(circle at 36% 24%, #e1ddb9 0 4px, transparent 5px),
+        radial-gradient(circle at 63% 24%, #e1ddb9 0 4px, transparent 5px),
+        linear-gradient(180deg,#57705b 0 25%,#1b2f2b 26% 100%);
+      filter:drop-shadow(0 20px 26px rgba(0,0,0,.28));
+      opacity:0;
+      transform:translateY(80px) scale(.9);
+    }
+
+    /* =========================================================
+       SCROLLABLE SLIDES
+       ========================================================= */
+    .slides{
+      position:relative;
+      z-index:8;
+      height:100vh;
+      overflow-y:auto;
+      overscroll-behavior-y:contain;
+      scroll-snap-type:y mandatory;
+      scrollbar-width:none;
+      scroll-behavior:smooth;
+    }
+
+    .slides::-webkit-scrollbar{display:none}
+
+    .slide{
+      min-height:100vh;
+      scroll-snap-align:start;
+      scroll-snap-stop:always;
+      display:flex;
+      align-items:center;
+      padding-bottom:120px;
+      padding-left:20vw;
+      padding-right:48vw;
+      position:relative;
+    }
+
+    .content{
+      max-width:660px;
+      transform:translateY(34px);
+      opacity:.15;
+      transition:
+        opacity .6s ease,
+        transform .6s cubic-bezier(.2,.75,.2,1);
+    }
+
+    .slide.active .content{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+.kicker{
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:.76rem;
+  color:var(--accent);
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+h1{
+  margin:0 0 24px;
+  font-weight:300;
+  font-size:clamp(3.6rem, 4.6vw, 4.6rem);
+  line-height:1.12;
+  letter-spacing:-.02em;
+}
+
+    .body{
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.8;
+      max-width:620px;
+    }
+
+    .body p{
+      margin:0 0 14px;
+    }
+
+    .stars{
+      display:grid;
+      gap:10px;
+      margin-top:24px;
+      color:rgba(255,255,255,.86);
+      font-size:.96rem;
+    }
+
+    .stars span::before{
+      content:"★";
+      color:#f5b942;
+      margin-right:10px;
+    }
+
+    .stars span{
+      color:#eef6ff;
+    }
+
+    .cta-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+
+.button{
+  pointer-events:auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-height:48px;
+  padding:0 20px;
+
+  border-radius:999px;
+
+  border:1px solid rgba(145, 220, 215, .28);
+
+  background:rgba(10, 46, 55, .72);
+
+  color:#eafcff;
+
+  font-weight:700;
+
+  backdrop-filter:blur(10px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 8px 24px rgba(0,0,0,.16);
+
+  transition:.2s ease;
+}
+
+.button.primary{
+  background:#0d5660;
+  color:#ffffff;
+
+  border-color:#23727a;
+
+  box-shadow:
+    0 8px 28px rgba(5, 65, 74, .32),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.button:hover{
+  transform:translateY(-2px);
+
+  background:#12626c;
+
+  border-color:#3c9198;
+}
+
+.button.primary:hover{
+  background:#14717a;
+}
+
+    .mini{
+      margin-top:12px;
+      color:rgba(255,255,255,.52);
+      font-size:.86rem;
+    }
+
+    /* =========================================================
+       VISUAL STATES PER SLIDE
+       ========================================================= */
+    body[data-slide="0"] .visual-orb{
+      opacity:1;
+      transform:translateY(0) rotate(-18deg) scale(1);
+    }
+    body[data-slide="0"] .visual-ring{
+      opacity:1;
+      transform:translateY(0) rotate(22deg) scale(1);
+    }
+    body[data-slide="0"] .visual-phone{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+    body[data-slide="0"] .visual-zombie{
+      opacity:0;
+      transform:translateY(80px) scale(.9);
+    }
+
+    body[data-slide="1"] .visual-orb{
+      opacity:.3;
+      transform:translate(-60px,10px) rotate(-24deg) scale(.86);
+    }
+    body[data-slide="1"] .visual-ring{
+      opacity:1;
+      transform:translate(40px,-70px) rotate(-16deg) scale(1.2);
+    }
+    body[data-slide="1"] .visual-phone{
+      opacity:1;
+      transform:translateX(-20px) scale(1.015);
+    }
+    body[data-slide="1"] .visual-zombie{opacity:0}
+
+    body[data-slide="2"] .visual-orb{
+      opacity:.15;
+      transform:translate(-80px,40px) scale(.7);
+    }
+    body[data-slide="2"] .visual-ring{
+      opacity:.22;
+      transform:translate(10px,30px) scale(.7);
+    }
+    body[data-slide="2"] .visual-phone{
+      opacity:1;
+      transform:translateX(-42px) scale(1.03);
+      filter:drop-shadow(0 0 28px rgba(91,178,204,.14));
+    }
+    body[data-slide="2"] .visual-zombie{opacity:0}
+
+    body[data-slide="3"] .visual-orb{
+      opacity:0;
+      transform:translate(-120px,50px) scale(.7);
+    }
+    body[data-slide="3"] .visual-ring{
+      opacity:0;
+      transform:translate(0,70px) scale(.7);
+    }
+    body[data-slide="3"] .visual-phone{
+      opacity:.24;
+      transform:translateX(80px) scale(.93);
+    }
+    body[data-slide="3"] .visual-zombie{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
+    body[data-slide="4"] .visual-orb{
+      opacity:.08;
+      transform:translate(-120px,70px) scale(.65);
+    }
+    body[data-slide="4"] .visual-ring{
+      opacity:.36;
+      transform:translate(50px,-10px) scale(.82);
+    }
+    body[data-slide="4"] .visual-phone{
+      opacity:.72;
+      transform:translateX(-10px) scale(.96);
+    }
+    body[data-slide="4"] .visual-zombie{
+      opacity:.18;
+      transform:translate(80px,25px) scale(.9);
+    }
+
+    /* slight background atmosphere variation */
+    body[data-slide="1"] .background{
+      /* filter:hue-rotate(-12deg) saturate(1.1); */
+    }
+    body[data-slide="2"] .background{
+      /* filter:hue-rotate(22deg) saturate(1.05); */
+    }
+    body[data-slide="3"] .background{
+      /* filter:hue-rotate(62deg) saturate(.9) brightness(.78); */
+    }
+    body[data-slide="4"] .background{
+      /* filter:hue-rotate(-28deg) saturate(1.16); */
+    }
+
+.fixed-footer{
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:45;
+
+  padding:16px 60px 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,26,47,.70),
+      rgba(6,22,38,.92)
+    );
+
+  border-top:1px solid rgba(255,255,255,.12);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  box-shadow:
+    0 -12px 40px rgba(0,0,0,.18);
+}
+
+
+.footer-languages{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+
+  gap:8px 0;
+
+  max-width:1300px;
+  margin:0 auto;
+
+  font-size:.72rem;
+  line-height:1.5;
+
+  color:rgba(220,236,255,.68);
+}
+
+
+.footer-languages a{
+  color:inherit;
+  text-decoration:none;
+
+  padding:0 12px;
+
+  border-right:1px solid rgba(255,255,255,.24);
+
+  transition:
+    color .2s ease,
+    text-shadow .2s ease;
+}
+
+
+.footer-languages a:hover{
+  color:#fff;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,.45),
+    0 0 14px rgba(120,220,255,.25);
+}
+
+
+/* le sacamos el separador al último */
+.footer-languages a:last-child{
+  border-right:0;
+}
+
+
+.language-icon{
+  position:absolute;
+  left:70px;
+
+  font-size:1.7rem;
+
+  color:rgba(220,236,255,.72);
+}
+
+
+.footer-copy{
+  margin-top:12px;
+
+  text-align:center;
+
+  font-size:.72rem;
+
+  color:rgba(220,236,255,.46);
+}
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media (max-width: 980px){
+      .brand{
+        left:84px;
+        top:28px;
+        font-size:1.05rem;
+      }
+
+      .visual{
+        right:-80px;
+        width:50vw;
+        opacity:.62;
+      }
+
+      .slide{
+        padding-left:12vw;
+        padding-right:30vw;
+      }
+    }
+
+    @media (max-width: 720px){
+      body{
+        overflow:hidden;
+      }
+
+      h1{
+          font-size:clamp(1.45rem, 6vw, 2.1rem);
+      }
+      
+      .brand{
+        left:58px;
+        top:19px;
+        letter-spacing:.18em;
+        font-size:.92rem;
+      }
+
+      .hamburger{
+        left:18px;
+        top:18px;
+      }
+
+      .bullets{
+        left:16px;
+        gap:9px;
+      }
+
+.bullets button{
+  width:12px;
+  height:12px;
+  padding:0;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.9);
+  background:transparent;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 0 6px rgba(255,255,255,.20);
+
+  transition:.2s ease;
+}
+
+.bullets button:hover{
+  transform:scale(1.15);
+
+  box-shadow:
+    0 0 8px rgba(255,255,255,.45),
+    0 0 16px rgba(150,220,255,.28);
+}
+
+.bullets button.active{
+  background:#ffffff;
+  border-color:#ffffff;
+
+  box-shadow:
+    0 0 5px rgba(255,255,255,.95),
+    0 0 12px rgba(255,255,255,.65),
+    0 0 22px rgba(125,220,255,.35);
+}
+      .visual{
+        right:-150px;
+        bottom:-40px;
+        width:420px;
+        height:65vh;
+        opacity:.34;
+      }
+
+      .visual-phone{
+        width:220px;
+        height:430px;
+        border-radius:34px;
+      }
+
+      .visual-phone::before{
+        top:54px;
+        left:13px;
+        right:13px;
+        bottom:54px;
+      }
+
+      .phone-copy{
+        top:128px;
+        font-size:.68rem;
+      }
+
+      .phone-title{
+        font-size:1rem;
+      }
+
+      .visual-zombie{
+        width:110px;
+        height:175px;
+      }
+
+      .slide{
+        padding:0 26px 0 54px;
+        align-items:center;
+      }
+
+      .content{
+        max-width:92%;
+      }
+
+      h1{
+        font-size:clamp(2.5rem, 12vw, 4.4rem);
+      }
+
+      .body{
+        font-size:.96rem;
+        line-height:1.65;
+      }
+    
+  .fixed-footer{
+    padding:10px 22px 9px;
+  }
+
+  .footer-languages{
+    font-size:.58rem;
+    line-height:1.45;
+
+    max-height:48px;
+    overflow:hidden;
+  }
+
+  .footer-languages a{
+    padding:0 7px;
+  }
+
+  .language-icon{
+    display:none;
+  }
+
+  .footer-copy{
+    margin-top:7px;
+    font-size:.6rem;
+  }
+    }
+  </style>
+</head>
+<body data-slide="0">
+<div class="background"><div class="particles"></div></div>
+<button aria-label="Ouvrir le menu" class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="brand-wrap">
+<img alt="Logo Austral Collective" class="brand-logo" src="penguin.png"/>
+<div class="brand"><strong>AUSTRAL</strong> COLLECTIVE</div>
+</div>
+<nav aria-label="Navigation des sections" class="bullets">
+<button aria-label="Introduction" class="active" data-slide="0"></button>
+<button aria-label="County Fair" data-slide="1"></button>
+<button aria-label="Rebound" data-slide="2"></button>
+<button aria-label="Fodder Z" data-slide="3"></button>
+<button aria-label="Beta" data-slide="4"></button>
+</nav>
+<div aria-hidden="true" class="visual">
+<div class="visual-orb"></div>
+<div class="visual-ring"></div>
+<div class="visual-phone">
+<div class="phone-copy">
+        Petits jeux<br/>
+        venus du Sud
+        <div class="phone-title">AUSTRAL</div>
+</div>
+</div>
+<div class="visual-zombie"></div>
+</div>
+<main class="slides" id="slides">
+<section class="slide active" data-index="0">
+<div class="content">
+<div class="kicker">Jeux indépendants d’Argentine</div>
+<h1>
+          Petits jeux.<br/>
+          Grandes idées.
+        </h1>
+<div class="body">
+<p>
+            Austral Collective crée des jeux compacts autour d’une mécanique forte, d’un feedback marquant et de mondes avec leur propre personnalité.
+          </p>
+<p>
+            Faciles à comprendre. Satisfaisants à maîtriser.
+          </p>
+</div>
+<div class="cta-row">
+<a class="button primary" href="#county-fair">Découvrir nos jeux</a>
+<a class="button" href="#beta">Rejoindre la bêta</a>
+</div>
+</div>
+</section>
+<section class="slide" data-index="1" id="county-fair">
+<div class="content">
+<div class="kicker">County Fair</div>
+<h1>
+          Lancez.<br/>
+          Ajustez.<br/>
+          Faites mouche.
+        </h1>
+<div class="body">
+<p>
+            Un jeu de lancer d’anneaux tactile construit autour de gestes simples, de niveaux courts et du plaisir d’un lancer parfait.
+          </p>
+</div>
+<div class="stars">
+<span>Niveaux courts basés sur l’adresse</span>
+<span>Une physique immédiatement réactive</span>
+<span>Une progression pensée pour de courtes sessions</span>
+</div>
+<div class="cta-row">
+<a class="button primary" href="#">Voir County Fair</a>
+</div>
+</div>
+</section>
+<section class="slide" data-index="2" id="rebound">
+<div class="content">
+<div class="kicker">Rebound</div>
+<h1>
+          Un geste.<br/>
+          Timing parfait.
+        </h1>
+<div class="body">
+<p>
+            Rebound repose sur une seule action : frapper exactement au bon moment et transformer un échange simple en une chaîne de tirs de plus en plus intenses.
+          </p>
+</div>
+<div class="stars">
+<span>Commandes à un seul geste</span>
+<span>Combos et feedback de plus en plus intense</span>
+<span>Pensé pour rejouer immédiatement</span>
+</div>
+<div class="cta-row">
+<a class="button primary" href="#">Voir Rebound</a>
+</div>
+</div>
+</section>
+<section class="slide" data-index="3" id="fodder-z">
+<div class="content">
+<div class="kicker">Fodder Z</div>
+<h1>
+          Survie tactique.<br/>
+          Humour noir.
+        </h1>
+<div class="body">
+<p>
+            Un jeu tactique en vue du dessus où il faut agir vite, survivre à des situations difficiles et garder un petit groupe en vie dans un monde qui ne cesse d’empirer.
+          </p>
+</div>
+<div class="stars">
+<span>Déplacements tactiques rapides</span>
+<span>Missions compactes</span>
+<span>Des personnages avec de la personnalité</span>
+</div>
+<div class="cta-row">
+<a class="button primary" href="#">Voir Fodder Z</a>
+</div>
+</div>
+</section>
+<section class="slide" data-index="4" id="beta">
+<div class="content">
+<div class="kicker">Jouez avant la sortie</div>
+<h1>
+          Vous ne devriez pas<br/>
+          encore y jouer.
+        </h1>
+<div class="body">
+<p>
+            Nous constituons un petit groupe de joueurs qui veulent un accès anticipé, des builds inachevées et un lien direct avec ce que nous améliorerons ensuite.
+          </p>
+</div>
+<div class="cta-row">
+<a class="button primary" href="#">Rejoindre l’équipe bêta</a>
+</div>
+<div class="mini">
+          Builds anticipées · invitations limitées · retours bienvenus
+        </div>
+</div>
+</section>
+</main>
+<script>
+    const slidesContainer = document.getElementById("slides");
+    const slides = [...document.querySelectorAll(".slide")];
+    const bullets = [...document.querySelectorAll(".bullets button")];
+
+    function activateSlide(index){
+      document.body.dataset.slide = index;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+
+      bullets.forEach((bullet, i) => {
+        bullet.classList.toggle("active", i === index);
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (!visible.length) return;
+
+      const index = Number(visible[0].target.dataset.index);
+      activateSlide(index);
+    }, {
+      root: slidesContainer,
+      threshold: [0.55, 0.7, 0.85]
+    });
+
+    slides.forEach(slide => observer.observe(slide));
+
+    bullets.forEach((bullet, index) => {
+      bullet.addEventListener("click", () => {
+        slides[index].scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+      });
+    });
+
+    // Optional keyboard navigation
+    window.addEventListener("keydown", (event) => {
+      const current = Number(document.body.dataset.slide || 0);
+
+      if (["ArrowDown", "PageDown"].includes(event.key)){
+        event.preventDefault();
+        const next = Math.min(current + 1, slides.length - 1);
+        slides[next].scrollIntoView({behavior:"smooth"});
+      }
+
+      if (["ArrowUp", "PageUp"].includes(event.key)){
+        event.preventDefault();
+        const prev = Math.max(current - 1, 0);
+        slides[prev].scrollIntoView({behavior:"smooth"});
+      }
+    });
+  </script>
+<div class="social-fixed">
+<a aria-label="Instagram" href="#" target="_blank">IG</a>
+<a aria-label="TikTok" href="#" target="_blank">TT</a>
+<a aria-label="E-mail" href="mailto:hello@australcollective.com">@</a>
+<a aria-label="Discord" href="#" target="_blank">DC</a>
+<a aria-label="YouTube" href="#" target="_blank">YT</a>
+</div>
+<footer class="fixed-footer">
+<div class="footer-languages">
+  <a href="/en">English</a>
+  <a href="/es">Español</a>
+  <a href="/fr">Français</a>
+  <a href="/de">Deutsch</a>
+  <a href="/it">Italiano</a>
+  <a href="#">Português</a>
+  <a href="#">日本語</a>
+  <a href="#">繁體中文</a>
+  <a href="#">简体中文</a>
+  <a href="#">한국어</a>
+  <a href="#">русский</a>
+</div>
+<div class="footer-copy">
+    © 2026 Tous droits réservés
+  </div>
+</footer>
+</body>
+</html>
