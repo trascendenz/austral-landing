@@ -17,5 +17,23 @@
 			"database_id": "0898016c-47d2-4525-83ff-1a98bb06f5a0",
 			"remote": false
 		}
-	]
+	],
+  "ratelimits": [
+    {
+      "name": "API_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 60,
+        "period": 60
+      }
+    },
+    {
+      "name": "REDIRECT_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
+  ]
 }
