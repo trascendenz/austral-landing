@@ -20,6 +20,7 @@ export default defineConfig({
             fr: resolve(__dirname, "fr.html"),
             de: resolve(__dirname, "de.html"),
             it: resolve(__dirname, "it.html"),
+            ptbr: resolve(__dirname, "pt-br.html"),
           },
         },
       },
