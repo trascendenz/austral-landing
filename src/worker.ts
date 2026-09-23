@@ -29,6 +29,15 @@ app.get("/api/health", (c) => {
   });
 });
 
+app.get("/api/debug-bindings", (c) => {
+  return c.json({
+    bindings: Object.keys(c.env),
+    hasDB: !!c.env.austral_tracking,
+    hasRedirectRateLimiter: !!c.env.REDIRECT_RATE_LIMITER,
+    hasApiRateLimiter: !!c.env.API_RATE_LIMITER,
+  });
+});
+
 app.get("/api/debug-geo", (c) => {
   const request = c.req.raw as CloudflareRequest;
 
@@ -39,6 +48,7 @@ app.get("/api/debug-geo", (c) => {
 });
 
 app.get("/r/:slug", async (c) => {
+  const request = c.req.raw as CloudflareRequest;
 
   const slug = c.req.param("slug");
 
