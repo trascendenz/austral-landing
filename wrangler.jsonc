@@ -1,15 +1,21 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "austral-collective",
-  "main": "./src/worker.ts",
-  "compatibility_date": "2026-09-23",
-
-  "assets": {
-    "html_handling": "drop-trailing-slash",
-
-    "run_worker_first": [
-      "/api/*",
-      "/r/*"
-    ]
-  }
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "austral-collective",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-09-23",
+	"assets": {
+		"html_handling": "drop-trailing-slash",
+		"run_worker_first": [
+			"/api/*",
+			"/r/*"
+		]
+	},
+	"d1_databases": [
+		{
+			"binding": "austral_tracking",
+			"database_name": "austral-tracking",
+			"database_id": "0898016c-47d2-4525-83ff-1a98bb06f5a0",
+			"remote": false
+		}
+	]
 }
