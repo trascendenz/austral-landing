@@ -15,7 +15,7 @@
 			"binding": "austral_tracking",
 			"database_name": "austral-tracking",
 			"database_id": "0898016c-47d2-4525-83ff-1a98bb06f5a0",
-			"remote": false
+			"remote": true
 		}
 	],
   "ratelimits": [
