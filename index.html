@@ -254,40 +254,11 @@
       pointer-events:none;
     }
 
-    .visual-orb,
-    .visual-phone,
-    .visual-ring,
-    .visual-zombie{
+    .visual-phone{
       position:absolute;
       transition:
         opacity .65s ease,
         transform .75s cubic-bezier(.2,.75,.2,1);
-    }
-
-    .visual-orb{
-      left:0;
-      bottom:11vh;
-      width:160px;
-      height:110px;
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 55% 40%, rgba(255,255,255,.8) 0 3px, transparent 4px),
-        linear-gradient(160deg, #cf5c64 0 42%, #162739 43% 100%);
-      box-shadow:0 0 42px rgba(77,169,191,.25);
-      transform:rotate(-18deg);
-    }
-
-    .visual-ring{
-      left:18%;
-      bottom:4vh;
-      width:72px;
-      height:72px;
-      border:10px solid #e9577b;
-      border-radius:50%;
-      box-shadow:
-        0 0 22px rgba(233,87,123,.45),
-        inset 0 0 18px rgba(255,255,255,.12);
-      transform:rotate(22deg);
     }
 
     .visual-phone{
@@ -494,7 +465,7 @@ h1{
 
     .mini{
       margin-top:12px;
-      color:rgba(255,255,255,.52);
+      color:#1e2a36;
       font-size:.86rem;
     }
 
@@ -886,9 +857,6 @@ h1{
   </nav>
 
   <div class="visual" aria-hidden="true">
-    <div class="visual-orb"></div>
-    <div class="visual-ring"></div>
-
     <div class="visual-phone">
       <div class="phone-copy">
         Small games<br>
@@ -896,8 +864,6 @@ h1{
         <div class="phone-title">AUSTRAL</div>
       </div>
     </div>
-
-    <div class="visual-zombie"></div>
   </div>
 
   <main class="slides" id="slides">
